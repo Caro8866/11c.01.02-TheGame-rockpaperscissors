@@ -13,8 +13,12 @@ function start() {
 function getUserSelection() {
   console.log("getUserSelection");
   // rock button event listener
+  document.querySelector(".rock").addEventListener("click", chooseRock);
   // paper button event listener
+  document.querySelector(".paper").addEventListener("click", choosePaper);
+
   // scissors button event listener
+  document.querySelector(".scissors").addEventListener("click", chooseScissors);
 }
 
 // Player chooses rock
@@ -23,12 +27,14 @@ function chooseRock() {
   playersChoice = "rock";
   randomiseComputerChoice();
 }
+
 // Player chooses paper
 function choosePaper() {
   console.log("Player has chosen Paper");
   playersChoice = "paper";
   randomiseComputerChoice();
 }
+
 // Player chooses scissors
 function chooseScissors() {
   console.log("Player has chosen Scissors");
