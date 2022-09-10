@@ -1,24 +1,25 @@
 // BASIC STRUCTURE
 
-// Init js
-window.addEventListener("DOMContentLoaded", start());
+//! Init js
+window.addEventListener("DOMContentLoaded", start);
 
-// Start Game
+//! Start Game
 function start() {
   console.log("start");
-  getUserSelection();
-}
-
-// Player makes a choice
-function getUserSelection() {
-  console.log("getUserSelection");
+  // ? Player makes a choice
   // rock button event listener
   document.querySelector(".rock").addEventListener("click", chooseRock);
+
   // paper button event listener
   document.querySelector(".paper").addEventListener("click", choosePaper);
 
   // scissors button event listener
   document.querySelector(".scissors").addEventListener("click", chooseScissors);
+
+  // Hide prior game's outcome
+  document.querySelector("#draw").className = "hidden";
+  document.querySelector("#win").className = "hidden";
+  document.querySelector("#lose").className = "hidden";
 }
 
 // Player chooses rock
@@ -42,15 +43,11 @@ function chooseScissors() {
   randomiseComputerChoice();
 }
 
-// Randomises a choice for computer
+//! Randomises a choice for computer
 function randomiseComputerChoice() {
   console.log("randomiseComputerChoice");
   //  (to get a random number between 1 & 3)
   randomComputerChoice = Math.floor(Math.random() * 3) + 1;
-
-  // rock === 1
-  // paper === 2
-  // scissors === 3
 
   if (randomComputerChoice === 1) {
     computerChoice = "rock";
@@ -66,49 +63,28 @@ function randomiseComputerChoice() {
   showAnimations();
 }
 
-// Show animations
+//! Show animations
 function showAnimations() {
   // shake animation
-  // specific animations for both choices
-  determineWinner();
+  document.querySelector("#player1").classList.add("shake");
+  document.querySelector("#player2").classList.add("shake");
+  document.querySelector("#player1").addEventListener("animationend", showWinner);
 }
 
-// Winner
-let winner = "";
+//! Determine Winner
+function showWinner() {
+  console.log("Who is the winner?");
+  const player = document.querySelector("#player1");
+  const computer = document.querySelector("#player2");
 
-// Determine Winner
-function determineWinner() {
-  // if playerChoice = "rock" & computerChoice ="paper"
-  // if playerChoice = "paper" & computerChoice ="scissors"
-  // if playerChoice = "scissors" & computerChoice ="rock"
+  player.className = "player " + playersChoice;
+  computer.className = "player " + computerChoice;
 
-  // computer wins
-
-  winner = "computer";
-
-  // if player win
-  showGameResult();
-}
-
-function showGameResult() {
-  //   if (winner = "computer")
-  //     //show lose screen
-  // } else if (winner = "player") {
-  //   // show win screen
-  //   console.log("Player Won")
-  // }
-  // else if (winner = "tied") {
-}
-
-function showWin() {
-  console.log("Show win!");
-  // show You Won text
-}
-
-function showLose() {
-  if ((winner = "computer")) {
-    //show lose screen
+  if ((playersChoice == "rock" && computerChoice == "scissors") || (playersChoice == "paper" && computerChoice == "rock") || (playersChoice == "scissors" && computerChoice == "paper")) {
+    document.querySelector("#win").classList.remove("hidden");
+  } else if (computerChoice == playersChoice) {
+    document.querySelector("#draw").classList.remove("hidden");
+  } else {
+    document.querySelector("#lose").classList.remove("hidden");
   }
 }
-
-function showDraw() {}
